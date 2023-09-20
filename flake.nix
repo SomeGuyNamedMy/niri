@@ -15,10 +15,12 @@
           xwayland
           udev
           libseat
+          libGL
           pipewire
           libinput
           libxkbcommon
           mesa
+          clang
     ];
   in {
 
@@ -35,6 +37,7 @@
             lockFile = ./Cargo.lock;
             allowBuiltinFetchGit = true;
         };
+        LIBCLANG_PATH = "${pkgs.clang.cc.lib}/lib";
         postInstall = ''
           wrapProgram "$out/bin/niri" --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"
         '';
